@@ -154,6 +154,15 @@ class Instructor extends Lambdasian {
   grade(student, subject) {
     return `${student.name} receives a perfect score on ${subject}`
   }
+
+  adjustGrade(student) {
+    if (Math.random() >= 0.5) {
+      student.grade += Math.random() * 10;
+    } else {
+      student.grade -= Math.random() * 10;
+    }
+    return student;
+  }
 }
 
 /*
@@ -177,6 +186,7 @@ class Student extends Lambdasian {
     this.previousBackground = attrs.previousBackground;
     this.className = attrs.className;
     this.favSubjects = attrs.favSubjects
+    this.grade = Math.random() * 100;
   }
 
   listSubjects() {
@@ -189,6 +199,14 @@ class Student extends Lambdasian {
 
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}.`;
+  }
+
+  graduate() {
+    if (this.grade >= 70){
+      return `${this.name} can graduate!`;
+    } else {
+      return `More assignments must be submitted or graded!`;
+    }
   }
 }
 
@@ -243,3 +261,14 @@ if (typeof exports !== 'undefined') {
   if (Student) { module.exports.Student = Student }
   if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
 }
+
+const steve = new Student({
+  name: "Steve",
+  age: 30,
+  location: "NYC",
+  previousBackground: "Underwater Basket Weaver",
+  className: "WebPT16",
+  favSubjects: ["Girls", "Hella cash", "JS"]
+});
+
+console.log(steve.grade);
